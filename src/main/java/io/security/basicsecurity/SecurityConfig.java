@@ -45,15 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .anyRequest().permitAll();
+                /*.antMatchers("/login").permitAll()
                 .antMatchers("/user").hasRole("USER")
                 .antMatchers("/admin/pay").hasRole("ADMIN")
                 .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated();*/
 
         http
                 .formLogin()
-                .successHandler(new AuthenticationSuccessHandler() {
+                /*.successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                         RequestCache requestCache = new HttpSessionRequestCache();
@@ -61,8 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         String redirectUrl = savedRequest.getRedirectUrl();
                         response.sendRedirect(redirectUrl);
                      }
-                })
+                })*/
             ;
+
+        http
+                .csrf()/*.disable()*/;
                 //.loginPage("/loginPage")
 //                .defaultSuccessUrl("/")
 //                .failureUrl("/login")
